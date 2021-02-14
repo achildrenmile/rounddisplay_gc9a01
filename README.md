@@ -1,7 +1,7 @@
 # rounddisplay_gc9a01
 Code samples and projects for GC9A01 based round display.
 
-#Getting started
+# Getting started
 To get an easy start, I recommend you to watch https://www.youtube.com/watch?v=Y0BGnHFuYBU&feature=emb_logo.
 
 # Current samples
