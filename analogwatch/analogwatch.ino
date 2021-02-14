@@ -110,7 +110,7 @@ void loop()
     int r = 120;
 
     //draw the mid circle
-    gfx->drawCircle(120, 120, 3, TIMECIRCLECOLOR);
+    gfx->drawCircle(CENTERPOSITION_X , CENTERPOSITION_Y, 3, TIMECIRCLECOLOR);
 
     
     //draw the time tick indicators
