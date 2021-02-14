@@ -23,7 +23,8 @@
 #define TFT_BL 22
 
 #define TIMECIRCLECOLOR WHITE
-#define TIMETICKINDICATORCOLOR WHITE
+#define TIMETICKTHICKINDICATORCOLOR WHITE
+#define TIMETICKTHININDICATORCOLOR WHITE
 #define HOURCURSORCOLOR RED
 #define MINUTECURSORCOLOR YELLOW
 #define SECONDCURSORCOLOR BLUE
@@ -40,7 +41,7 @@ Arduino_DataBus *bus = new Arduino_ESP32SPI(TFT_DC, TFT_CS, 18 /* SCK */, 23 /* 
 Arduino_GC9A01 *gfx = new Arduino_GC9A01(bus, TFT_RST, 0 /* rotation */, true /* IPS */);
 
 int timezone = 1 * 3600; //GMT+1 if you are in a different time zone adapt accordingly
-int dst = 0; //wintertime; in case of summertime set this to 1
+int dst = 0; //Wintertime
 float anglemin=-1.0;
 float anglehour=-1.0;
 
@@ -110,11 +111,26 @@ void loop()
     int r = 120;
 
     //draw the mid circle
-    gfx->drawCircle(CENTERPOSITION_X , CENTERPOSITION_Y, 3, TIMECIRCLECOLOR);
+    gfx->drawCircle(120, 120, 3, TIMECIRCLECOLOR);
 
     
-    //draw the time tick indicators
+    //draw the big time tick indicators
     for( int z=0; z < 360;z= z + 30 )
+    {
+      //Begin at 0° and stop at 360°
+      float angle = z;
+ 
+      angle=(angle/57.29577951) ; //Convert degrees to radians
+      int x2=(120+(sin(angle)*r));
+      int y2=(120-(cos(angle)*r));
+      int x3=(120+(sin(angle)*(r-10)));
+      int y3=(120-(cos(angle)*(r-10)));
+      gfx->drawLine(x2,y2,x3,y3,TIMETICKTHICKINDICATORCOLOR);
+
+    }
+
+    //draw the thin time tick indicators
+    for( int z=0; z < 360;z= z + 6 )
     {
       //Begin at 0° and stop at 360°
       float angle = z;
@@ -124,7 +140,7 @@ void loop()
       int y2=(120-(cos(angle)*r));
       int x3=(120+(sin(angle)*(r-5)));
       int y3=(120-(cos(angle)*(r-5)));
-      gfx->drawLine(x2,y2,x3,y3,TIMETICKINDICATORCOLOR);
+      gfx->drawLine(x2,y2,x3,y3,TIMETICKTHININDICATORCOLOR);
 
     }
     // display second hand
@@ -167,16 +183,16 @@ void loop()
     { 
         if(anglehour!=-1.0)
         {//remove old hour indicator by setting to the same color than the screen
-            x3=(120+(sin(anglehour)*(r-25)));
-            y3=(120-(cos(anglehour)*(r-25)));
+            x3=(120+(sin(anglehour)*(r-75)));
+            y3=(120-(cos(anglehour)*(r-75)));
             gfx->drawLine(120,120,x3,y3,BLACK);
         }
     }
     
     anglehour = p_tm->tm_hour * 30 + int((p_tm->tm_min / 12) * 6 );
     anglehour=ConvertDegreesToRadians(anglehour);
-    x3=(120+(sin(anglehour)*(r-25)));
-    y3=(120-(cos(anglehour)*(r-25)));
+    x3=(120+(sin(anglehour)*(r-35)));
+    y3=(120-(cos(anglehour)*(r-35)));
     gfx->drawLine(120,120,x3,y3,HOURCURSORCOLOR);
 
     gfx->setTextColor(DAYINDICATORTEXTCOLOR);
@@ -186,3 +202,6 @@ void loop()
  
     delay(100);
 }
+
+
+
