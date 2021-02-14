@@ -146,14 +146,14 @@ void loop()
     // display second hand
     float anglesec = p_tm->tm_sec*6 ;
     anglesec=ConvertDegreesToRadians(anglesec);
-    int x3=(120+(sin(anglesec)*(r-5)));
-    int y3=(120-(cos(anglesec)*(r-5)));
+    int x3=(120+(sin(anglesec)*(r-11)));
+    int y3=(120-(cos(anglesec)*(r-11)));
     gfx->drawLine(120,120,x3,y3,SECONDCURSORCOLOR);
 
     float beforeanglesec = (p_tm->tm_sec-1)*6 ;
     beforeanglesec=ConvertDegreesToRadians(beforeanglesec);
-    x3=(120+(sin(beforeanglesec)*(r-5)));
-    y3=(120-(cos(beforeanglesec)*(r-5)));
+    x3=(120+(sin(beforeanglesec)*(r-11)));
+    y3=(120-(cos(beforeanglesec)*(r-11)));
     gfx->drawLine(120,120,x3,y3,BLACK);
     
     
@@ -163,16 +163,16 @@ void loop()
     { 
       if(anglemin!=-1.0)
       {//remove old hour indicator by setting to the same color than the screen
-          x3=(120+(sin(anglemin)*(r-9)));
-          y3=(120-(cos(anglemin)*(r-9)));
+          x3=(120+(sin(anglemin)*(r-11)));
+          y3=(120-(cos(anglemin)*(r-11)));
           gfx->drawLine(120,120,x3,y3,BLACK);
       }
     }
     
     anglemin = p_tm->tm_min * 6 ;
     anglemin=ConvertDegreesToRadians(anglemin);
-    x3=(120+(sin(anglemin)*(r-9)));
-    y3=(120-(cos(anglemin)*(r-9)));
+    x3=(120+(sin(anglemin)*(r-11)));
+    y3=(120-(cos(anglemin)*(r-11)));
     gfx->drawLine(120,120,x3,y3,MINUTECURSORCOLOR);
 
     Serial.println(p_tm->tm_sec);
@@ -183,8 +183,8 @@ void loop()
     { 
         if(anglehour!=-1.0)
         {//remove old hour indicator by setting to the same color than the screen
-            x3=(120+(sin(anglehour)*(r-75)));
-            y3=(120-(cos(anglehour)*(r-75)));
+            x3=(120+(sin(anglehour)*(r-35)));
+            y3=(120-(cos(anglehour)*(r-35)));
             gfx->drawLine(120,120,x3,y3,BLACK);
         }
     }
@@ -196,12 +196,9 @@ void loop()
     gfx->drawLine(120,120,x3,y3,HOURCURSORCOLOR);
 
     gfx->setTextColor(DAYINDICATORTEXTCOLOR);
-    gfx->setTextSize(1);
-    gfx->setCursor(120+90,120 - 3);
+    gfx->setTextSize(2);
+    gfx->setCursor(120+80,112);
     gfx->print(p_tm->tm_mday);
  
     delay(100);
 }
-
-
-
