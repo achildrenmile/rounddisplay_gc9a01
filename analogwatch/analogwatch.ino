@@ -29,6 +29,7 @@
 #define MINUTECURSORCOLOR YELLOW
 #define SECONDCURSORCOLOR BLUE
 #define DAYINDICATORTEXTCOLOR GREEN
+#define TITLETEXTCOLOR WHITE
 
 //round display resolution = 240x240 
 #define CENTERPOSITION_X 120
@@ -197,8 +198,18 @@ void loop()
 
     gfx->setTextColor(DAYINDICATORTEXTCOLOR);
     gfx->setTextSize(2);
-    gfx->setCursor(120+80,112);
+    gfx->setCursor(120+70,112);
     gfx->print(p_tm->tm_mday);
+
+    #ifdef TITLETEXTCOLOR
+      gfx->setTextColor(TITLETEXTCOLOR);
+      gfx->setTextSize(2);
+      gfx->setCursor(120-80,70);
+      gfx->print("Title of Watch");
+    #endif
  
     delay(100);
 }
+
+
+
